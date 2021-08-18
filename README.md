@@ -8,7 +8,7 @@ Clone :
 $ git clone https://github.com/mrizkimaulidan/bcryptpwn.git
 ```
 
-Download require depedencies :
+Download required depedencies :
 ```
 $ go mod download
 ```
