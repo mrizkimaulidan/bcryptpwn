@@ -37,7 +37,6 @@ func main() {
 
 		if err != nil {
 			red("BAD ===>", sentence)
-
 		}
 
 		if err == nil {
@@ -48,7 +47,7 @@ func main() {
 		}
 	}
 
-	yellow("\nYour wordlist are trash! I can'f fucking find the hashes on your wordlist!")
+	yellow("\nYour wordlist are trash! I cannot fucking find the hashes on your wordlist!")
 
 	os.Exit(1)
 }
