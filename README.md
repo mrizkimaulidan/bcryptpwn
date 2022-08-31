@@ -8,28 +8,42 @@ Clone :
 $ git clone https://github.com/mrizkimaulidan/bcryptpwn.git
 ```
 
-Download required depedencies :
+Download required dependencies:
 
 ```bash
 $ go mod download
 ```
 
-Build :
+Build:
 
 ```bash
 $ go build main.go
 ```
 
-Usage :
+Help:
 
 ```bash
-$ main.exe bcrypt-hashes /path/to/wordlist.txt
+$ ./main -help
+```
+
+```bash
+Usage of ./main:
+  -hash string
+        your bcrypt hashes
+  -path string
+        your wordlist path
+```
+
+Usage:
+
+```bash
+$ ./main bcrypt-hashes /path/to/wordlist.txt
 ```
 
 Example :
 
 ```bash
-$ main.exe $2a$10$s.qv0TNSsSa6//RYuTXAJOn4UZVgiJA4MQ0Gi851SrBvjaM56xTV2 D:\wordlist.txt
+$ ./main -hash='$2a$12$3Y3NvQQ7H57miY5LFidbmeHaGgIKVX1ZMiftRpm50Cfm9/0oyJCaq' -path=wordlist.txt
 ```
 
-Only tested on Windows, I don't know if it can run smoothly on Linux. Just open an issue if something wrong on Linux machine.
+Do not forget to wrap hashes with single quote.

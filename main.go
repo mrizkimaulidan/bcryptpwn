@@ -2,6 +2,8 @@ package main
 
 import (
 	"bufio"
+	"flag"
+	"log"
 	"os"
 	"strings"
 
@@ -13,33 +15,34 @@ var (
 	red    = color.New(color.FgRed).PrintlnFunc()
 	green  = color.New(color.FgHiGreen).PrintlnFunc()
 	yellow = color.New(color.FgYellow).PrintlnFunc()
+	blue   = color.New(color.FgBlue).PrintlnFunc()
 
-	hashCommandArgument = os.Args[1]
-	pathCommandArgument = os.Args[2]
+	hashCommandArgument string
+	pathCommandArgument string
 )
 
 func main() {
-	file, err := os.Open(pathCommandArgument)
+	flag.StringVar(&hashCommandArgument, "hash", "", "your bcrypt hashes")
+	flag.StringVar(&pathCommandArgument, "path", "", "your wordlist path")
+	flag.Parse()
 
+	blue("Hash:", hashCommandArgument)
+
+	file, err := os.Open(pathCommandArgument)
 	if err != nil {
-		panic("File not fucking found man!")
+		log.Fatalln("failed opening path", err)
 	}
+	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-
-	defer file.Close()
 
 	for scanner.Scan() {
 		// Remove all fucking whitespaces at the end of the sentence based on your wordlist
 		sentence := strings.TrimSpace(scanner.Text())
-
 		err := bcrypt.CompareHashAndPassword([]byte(hashCommandArgument), []byte(sentence))
-
 		if err != nil {
 			red("BAD ===>", sentence)
-		}
-
-		if err == nil {
+		} else {
 			green("\nJACKPOT BITCH! ===>", sentence)
 			green("\nI found it! Here is the plain hashes : " + "[ " + sentence + " ]")
 
@@ -47,7 +50,5 @@ func main() {
 		}
 	}
 
-	yellow("\nYour wordlist are trash! I cannot fucking find the hashes on your wordlist!")
-
-	os.Exit(1)
+	yellow("Your wordlist are trash! I cannot fucking find right the hashes on your wordlist!")
 }
